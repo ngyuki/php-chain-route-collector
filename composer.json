@@ -1,0 +1,15 @@
+{
+    "autoload": {
+        "psr-4": {
+            "ngyuki\\RouteCollector\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "ngyuki\\RouteCollector\\Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "nikic/fast-route": "^1.2"
+    }
+}
