@@ -9,7 +9,7 @@ class RouteCollectorTest extends TestCase
     function collect(callable $callback)
     {
         $registry = new RouteRegistry();
-        $callback(new RouteCollector($registry));
+        $callback(new ActionRouteCollector($registry));
         return $registry->getRoutes();
     }
 
@@ -19,7 +19,7 @@ class RouteCollectorTest extends TestCase
     function example_()
     {
         $registry = new RouteRegistry();
-        $r = new RouteCollector($registry);
+        $r = new ActionRouteCollector($registry);
 
         // GET / -> HomeController::index
         $r->path('/')->get()->controller('HomeController')->action('index');
@@ -27,8 +27,8 @@ class RouteCollectorTest extends TestCase
         // GET|POST /both -> HomeController::both
         $r->path('/both')->get()->post()->controller('HomeController')->action('both');
 
-        $r->controller('UserController')->group(function (RouteCollector $r) {
-            $r->path('/user')->group(function (RouteCollector $r) {
+        $r->controller('UserController')->group(function (ActionRouteCollector $r) {
+            $r->path('/user')->group(function (ActionRouteCollector $r) {
 
                 // GET /user -> UserController::index
                 $r->get()->action('index');
@@ -39,7 +39,7 @@ class RouteCollectorTest extends TestCase
                 // POST /user/create -> UserController::store
                 $r->path('/create')->post()->action('store');
             });
-            $r->path('/user/{id}')->group(function (RouteCollector $r) {
+            $r->path('/user/{id}')->group(function (ActionRouteCollector $r) {
 
                 // GET /user/{id} -> UserController::show
                 $r->get()->action('show');
@@ -75,7 +75,7 @@ class RouteCollectorTest extends TestCase
      */
     function empty_()
     {
-        $routes = $this->collect(function(RouteCollector $r) {});
+        $routes = $this->collect(function(ActionRouteCollector $r) {});
 
         self::assertEquals([], $routes);
     }
@@ -85,7 +85,7 @@ class RouteCollectorTest extends TestCase
      */
     function empty_group()
     {
-        $routes = $this->collect(function(RouteCollector $r) {
+        $routes = $this->collect(function(ActionRouteCollector $r) {
             $r->group(function(){});
         });
 
@@ -97,7 +97,7 @@ class RouteCollectorTest extends TestCase
      */
     function empty_group_with_route()
     {
-        $routes = $this->collect(function(RouteCollector $r) {
+        $routes = $this->collect(function(ActionRouteCollector $r) {
             $r->get()->path('/')->controller('HomeController')->action('index')->group(function(){});
         });
 

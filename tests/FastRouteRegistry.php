@@ -1,7 +1,8 @@
 <?php
-namespace ngyuki\RouteCollector;
+namespace ngyuki\RouteCollector\Tests;
 
 use FastRoute\RouteCollector as FastRouteCollector;
+use ngyuki\RouteCollector\RouteRegistryInterface;
 
 class FastRouteRegistry implements RouteRegistryInterface
 {

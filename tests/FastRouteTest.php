@@ -9,7 +9,7 @@ class FastRouteTest extends TestCase
     function generateFastRouteCallback(callable $callback)
     {
         return function(FastRoute\RouteCollector $collector) use ($callback) {
-            $callback(new RouteCollector(new FastRouteRegistry($collector)));
+            $callback(new ActionRouteCollector(new FastRouteRegistry($collector)));
         };
     }
 
@@ -19,11 +19,12 @@ class FastRouteTest extends TestCase
      *
      * @param $method
      * @param $path
+     * @param $handler
      * @param $params
      */
     function fast_route_integrate($method, $path, $handler, $params)
     {
-        $dispatcher = FastRoute\simpleDispatcher(FastRouteAdapter::callback(function (RouteCollector $r) {
+        $dispatcher = FastRoute\simpleDispatcher($this->generateFastRouteCallback(function (ActionRouteCollector $r) {
 
             // GET / -> HomeController::index
             $r->path('/')->get()->controller('HomeController')->action('index');
@@ -31,8 +32,8 @@ class FastRouteTest extends TestCase
             // GET|POST /both -> HomeController::both
             $r->path('/both')->get()->post()->controller('HomeController')->action('both');
 
-            $r->controller('UserController')->group(function (RouteCollector $r) {
-                $r->path('/user')->group(function (RouteCollector $r) {
+            $r->controller('UserController')->group(function (ActionRouteCollector $r) {
+                $r->path('/user')->group(function (ActionRouteCollector $r) {
 
                     // GET /user -> UserController::index
                     $r->get()->action('index');
@@ -43,7 +44,7 @@ class FastRouteTest extends TestCase
                     // POST /user/create -> UserController::store
                     $r->path('/create')->post()->action('store');
                 });
-                $r->path('/user/{id}')->group(function (RouteCollector $r) {
+                $r->path('/user/{id}')->group(function (ActionRouteCollector $r) {
 
                     // GET /user/{id} -> UserController::show
                     $r->get()->action('show');
