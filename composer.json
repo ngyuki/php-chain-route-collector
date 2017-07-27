@@ -1,5 +1,5 @@
 {
-    "name": "ngyuki/php-route-collector",
+    "name": "ngyuki/route-collector",
     "type": "library",
     "license": "MIT",
     "keywords": [ "router" ],
