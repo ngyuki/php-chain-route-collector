@@ -4,7 +4,7 @@ namespace ngyuki\RouteCollector\Tests;
 use ngyuki\RouteCollector\RouteCollector;
 
 /**
- * @method $this controller(string $controller)
- * @method $this action(string $action)
+ * @method self controller(string $controller)
+ * @method self action(string $action)
  */
 class ActionRouteCollector extends RouteCollector {}

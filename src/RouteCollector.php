@@ -41,7 +41,7 @@ class RouteCollector
     }
 
     /**
-     * @return $this
+     * @return static
      */
     private function chain()
     {
@@ -52,7 +52,7 @@ class RouteCollector
     }
 
     /**
-     * @return $this
+     * @return static
      */
     public function get()
     {
@@ -62,7 +62,7 @@ class RouteCollector
     }
 
     /**
-     * @return $this
+     * @return static
      */
     public function post()
     {
@@ -72,7 +72,7 @@ class RouteCollector
     }
 
     /**
-     * @return $this
+     * @return static
      */
     public function put()
     {
@@ -82,7 +82,7 @@ class RouteCollector
     }
 
     /**
-     * @return $this
+     * @return static
      */
     public function patch()
     {
@@ -92,7 +92,7 @@ class RouteCollector
     }
 
     /**
-     * @return $this
+     * @return static
      */
     public function delete()
     {
@@ -103,7 +103,8 @@ class RouteCollector
 
     /**
      * @param string $path
-     * @return $this
+     *
+     * @return static
      */
     public function path($path)
     {
@@ -115,7 +116,8 @@ class RouteCollector
     /**
      * @param string $name
      * @param mixed $value
-     * @return $this
+     *
+     * @return static
      */
     public function param($name, $value)
     {
@@ -126,7 +128,8 @@ class RouteCollector
 
     /**
      * @param array $params
-     * @return $this
+     *
+     * @return static
      */
     public function params(array $params)
     {
@@ -139,7 +142,7 @@ class RouteCollector
      * @param string $name
      * @param array $arguments [$value]
      *
-     * @return $this
+     * @return static
      */
     public function __call($name, $arguments)
     {
@@ -148,7 +151,8 @@ class RouteCollector
 
     /**
      * @param callable $callback
-     * @return $this
+     *
+     * @return static
      */
     public function group(callable $callback)
     {
