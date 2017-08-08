@@ -1,5 +1,11 @@
 # php-route-collector
 
+[![Build Status](https://travis-ci.org/ngyuki/php-route-collector.svg?branch=master)](https://travis-ci.org/ngyuki/php-route-collector)
+[![Coverage Status](https://coveralls.io/repos/github/ngyuki/php-route-collector/badge.svg?branch=master)](https://coveralls.io/github/ngyuki/php-route-collector?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/ngyuki/route-collector/version)](https://packagist.org/packages/ngyuki/route-collector)
+[![Latest Unstable Version](https://poser.pugx.org/ngyuki/route-collector/v/unstable)](//packagist.org/packages/ngyuki/route-collector)
+[![License](https://poser.pugx.org/ngyuki/route-collector/license)](https://packagist.org/packages/ngyuki/route-collector)
+
 ルート定義をメソッドチェインでできるようにしてはどうかと思って作ったサンプル。
 
 ## Example
