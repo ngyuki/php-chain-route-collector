@@ -20,6 +20,9 @@ $r->path('/')->get()->controller('HomeController')->action('index');
 // GET|POST /both -> HomeController::both
 $r->path('/both')->get()->post()->controller('HomeController')->action('both');
 
+// GET|POST /both -> HomeController::method
+$r->path('/method')->method('GET|POST')->controller('HomeController')->action('method');
+
 $r->controller('UserController')->group(function (RouteCollector $r) {
     $r->path('/user')->group(function (RouteCollector $r) {
 
@@ -59,13 +62,13 @@ return $registry->getRoutes();
 
 - `path(string $path)`
     - URL のリクエストパス
-- `get()/post()/put()/patch()/delete()`
+- `get()/post()/put()/patch()/delete()/method(string $method)`
     - リクエストメソッド
 - `params(array $params)`
 - `param(string $name, mixed $value)`
     - ルートパラメータ
 
-これら以外の名前でマジックメソッドが呼ばれると `param($method, $value)` に置き換えられます。よって、下記の２つの呼び出しは等価です。
+これら以外の名前でマジックメソッドが呼ばれると `param($name, $value)` に置き換えられます。よって、下記の２つの呼び出しは等価です。
 
 ```php
 $r->controller('HomeController')->action('index');
@@ -91,6 +94,13 @@ $r->action('index')->controller('HomeController')->get()->path('/');
 ```php
 // GET と POST の両方にマッチします
 $r->path('/')->get()->post()->controller('HomeController')->action('index');
+```
+
+リクエストメソッドは `method()` で文字列リテラルでパイプ区切りでも指定できます。
+
+```php
+// GET と POST の両方にマッチします
+$r->path('/')->method('GET|POST')->controller('HomeController')->action('index');
 ```
 
 `path` のチェインを複数つなげるとパスが連結されます。
@@ -152,4 +162,24 @@ class MyRouteCollector extends RouteCollector {}
 
 $registry = new RouteRegistry();
 $r = new MyRouteCollector($registry);
+```
+
+本来であれば `$this` ではなく `static` にするべきなのですが、なぜか PhpStorm だと `@method` ときに `static` による補完が効かなかったため `$this` にしています。
+
+気になるなら `@method` は使わずに普通にメソッド定義をしてください。これなら `static` でも補完が効きます。
+
+```php
+// MyRouteCollector.php
+
+class ActionRouteCollector extends RouteCollector
+{
+    /**
+     * @param string $controller
+     * @return static
+     */
+    public function controller($controller)
+    {
+        return $this->param(__FUNCTION__, $controller);
+    }
+}
 ```
