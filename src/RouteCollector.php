@@ -52,6 +52,19 @@ class RouteCollector
     }
 
     /**
+     * @param string $method
+     * @return static
+     */
+    public function method($method)
+    {
+        $new = $this->chain();
+        foreach (explode('|', $method) as $m) {
+            $new->method[] = strtoupper($m);
+        }
+        return $new;
+    }
+
+    /**
      * @return static
      */
     public function get()

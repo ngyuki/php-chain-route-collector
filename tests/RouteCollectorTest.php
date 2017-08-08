@@ -27,6 +27,9 @@ class RouteCollectorTest extends TestCase
         // GET|POST /both -> HomeController::both
         $r->path('/both')->get()->post()->controller('HomeController')->action('both');
 
+        // GET|POST /arr -> HomeController::arr
+        $r->path('/method')->method('get|POST')->controller('HomeController')->action('method');
+
         $r->controller('UserController')->group(function (ActionRouteCollector $r) {
             $r->path('/user')->group(function (ActionRouteCollector $r) {
 
@@ -58,6 +61,7 @@ class RouteCollectorTest extends TestCase
         $expected = [
             [['GET'], '/', ['controller' => 'HomeController', 'action' => 'index']],
             [['GET', 'POST'], '/both', ['controller' => 'HomeController', 'action' => 'both']],
+            [['GET', 'POST'], '/method', ['controller' => 'HomeController', 'action' => 'method']],
             [['GET'], '/user', ['controller' => 'UserController', 'action' => 'index']],
             [['GET'], '/user/create', ['controller' => 'UserController', 'action' => 'create']],
             [['POST'], '/user/create', ['controller' => 'UserController', 'action' => 'store']],
