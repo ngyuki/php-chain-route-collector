@@ -1,5 +1,6 @@
 {
     "name": "ngyuki/route-collector",
+    "description": "Simple route collector",
     "type": "library",
     "license": "MIT",
     "keywords": [ "router" ],
@@ -10,6 +11,11 @@
             "email": "ngyuki.jp@gmail.com"
         }
     ],
+    "config": {
+        "platform": {
+            "php": "7.0.10"
+        }
+    },
     "autoload": {
         "psr-4": {
             "ngyuki\\RouteCollector\\": "src/"
@@ -20,8 +26,13 @@
             "ngyuki\\RouteCollector\\Tests\\": "tests/"
         }
     },
+    "require": {
+        "php": ">=7.0.10"
+    },
     "require-dev": {
-        "nikic/fast-route": "^1.2"
+        "nikic/fast-route": "^1.2",
+        "phpunit/phpunit": "^6.3",
+        "satooshi/php-coveralls": "^1.0"
     },
     "suggest": {
         "nikic/fast-route": "FastRoute Integration"

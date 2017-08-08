@@ -1,0 +1,25 @@
+language: php
+
+sudo: false
+
+php:
+  - 7.0
+  - 7.1
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+before_install:
+  - composer install --prefer-dist
+  - mkdir -p build/logs
+
+script:
+  - phpdbg -qrr vendor/bin/phpunit --colors --coverage-text --coverage-clover build/logs/clover.xml
+
+after_success:
+  - travis_retry vendor/bin/coveralls -v
+
+branches:
+  except:
+    - /\//
