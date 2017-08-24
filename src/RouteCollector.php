@@ -127,7 +127,7 @@ class RouteCollector
     }
 
     /**
-     * @param string $name
+     * @param int|string $name
      * @param mixed $value
      *
      * @return static
